@@ -498,6 +498,41 @@ gateway management (projects, modules, backups, licensing, logs). These are off 
 (they add context bloat) — enable via the dashboard settings if needed for specific gateway
 administration tasks. For day-to-day exploration and debugging, you won't need them.
 
+## ClickUp Integration
+
+If a ClickUp MCP server is connected, use it as a **final report**, not a progress log.
+
+### Commenting on Tasks
+
+When you finish a task or subtask, leave **one** comment summarizing the outcome. The comment
+should be self-contained — readable by someone who only has access to ClickUp, not your
+local environment.
+
+**What to include:**
+- What was accomplished (specific outcome, not process)
+- Which Ignition resources were modified and why (view paths, tag paths, script paths, query paths)
+- Any relevant findings or decisions made during the work
+
+**What NOT to include:**
+- References to local files, paths on your machine, or conversation transcripts
+- Step-by-step progress updates ("first I read the view, then I checked the tags...")
+- Tool names or MCP internals ("I used `read_view` to investigate...")
+- Anything that requires access to the developer's local environment to understand
+
+**Good example:**
+> Fixed the `high_level` label binding in `Settings/AlarmConfig` (water-treatment project).
+> The tag path was missing the `[default]` provider prefix — changed from
+> `WaterTreatment/ClearWell/HighLevelAlarm` to `[default]WaterTreatment/ClearWell/HighLevelAlarm`.
+> Also corrected the binding config key from `config.path` to `config.tagPath`.
+> Both issues caused the binding to silently fail with no error.
+
+**Bad example:**
+> Completed the task. Reference `/Users/dev/caldera-mcp-skill-workspace/iteration-4/eval-10/response.md`
+> for details. Used read_view and get_component to diagnose the issue.
+
+If the user asks you to write something specific to the task description or a comment, do
+exactly what they ask. But for your own summary comments, keep them targeted and self-contained.
+
 ## Effectiveness Tips
 
 1. **Read before you guess.** The gateway has the answers — read the view, read the script,
