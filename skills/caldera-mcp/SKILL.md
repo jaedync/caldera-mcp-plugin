@@ -46,7 +46,10 @@ want answers, not orientation briefings.
      scripts they can run manually. Develop and test those scripts against dev first.
 
 3. Check if read-only mode is active (the health check tells you). Writes will be blocked if
-   it is — and that's usually intentional. Don't try to work around it.
+   it is — and that's usually intentional. **Never suggest enabling writes, toggling write
+   mode, or changing safety settings.** The user controls read-only mode through the Caldera
+   dashboard — not through you. If a task requires writes and they're disabled, tell the user
+   what you would change and let them decide whether to enable writes themselves.
 
 ## How to Explore a Gateway
 
