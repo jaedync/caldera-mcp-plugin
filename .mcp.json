@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "caldera-mcp": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "http://localhost:8765/mcp"]
+      "type": "http",
+      "url": "http://localhost:8765/mcp"
     }
   }
 }

@@ -4,9 +4,8 @@ A Claude Code plugin that connects to your Ignition SCADA gateway through [Calde
 
 ## What's included
 
-- **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via `mcp-remote`
+- **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via native HTTP transport
 - **Domain Skill** -- Teaches Claude how to effectively use Caldera MCP tools, including:
-  - Safety guardrails (production hard stop, QA write caution)
   - Perspective view debugging (common pitfalls, binding issues, transform chains)
   - Jython 2.7 scripting rules for `execute_script`
   - Gateway exploration workflows
@@ -16,14 +15,14 @@ A Claude Code plugin that connects to your Ignition SCADA gateway through [Calde
 
 - [Claude Code](https://code.claude.com) v1.0.33+
 - [Caldera MCP server](https://github.com/caldera-mcp/caldera-mcp) running on your Ignition gateway
-- Node.js (for `npx` / `mcp-remote`)
 
 ## Install
 
 ### From marketplace
 
 ```bash
-claude plugin install caldera-mcp
+/plugin marketplace add jaedync/caldera-mcp-plugin
+/plugin install caldera-mcp@caldera-mcp
 ```
 
 ### Local development
@@ -34,14 +33,14 @@ claude --plugin-dir ./caldera-mcp-plugin
 
 ## Configuration
 
-By default, the plugin connects to `http://localhost:8765/mcp/`. If your Caldera MCP server runs on a different host or port, edit `.mcp.json` in the plugin directory:
+By default, the plugin connects to `http://localhost:8765/mcp`. If your Caldera MCP server runs on a different host or port, edit `.mcp.json` in the plugin directory:
 
 ```json
 {
   "mcpServers": {
     "caldera-mcp": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "http://your-host:your-port/mcp"]
+      "type": "http",
+      "url": "http://your-host:your-port/mcp"
     }
   }
 }
@@ -49,10 +48,10 @@ By default, the plugin connects to `http://localhost:8765/mcp/`. If your Caldera
 
 ## How it works
 
-The plugin uses [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) to bridge the Caldera MCP HTTP Streamable transport to the stdio transport that Claude Code expects. This avoids HTTPS requirements for local development servers.
+Claude Code natively supports HTTP Streamable transport, so the plugin connects directly to your Caldera MCP server -- no intermediary packages required.
 
 ```
-Claude Code  <--stdio-->  mcp-remote  <--HTTP-->  Caldera MCP Server  <-->  Ignition Gateway
+Claude Code  <--HTTP-->  Caldera MCP Server  <-->  Ignition Gateway
 ```
 
 ## Available tools (via Caldera MCP)
