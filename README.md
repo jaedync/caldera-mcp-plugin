@@ -55,14 +55,6 @@ The plugin uses [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) to brid
 Claude Code  <--stdio-->  mcp-remote  <--HTTP-->  Caldera MCP Server  <-->  Ignition Gateway
 ```
 
-## Safety
-
-The skill teaches Claude to:
-
-- **Stop immediately** on production gateways -- no tools run, not even read-only
-- **Confirm before writing** on QA servers -- prepares changes for review
-- **Proceed normally** on dev servers -- with read-first, validate, surgical edit workflow
-
 ## Available tools (via Caldera MCP)
 
 The MCP server provides 110+ tools across these categories:
