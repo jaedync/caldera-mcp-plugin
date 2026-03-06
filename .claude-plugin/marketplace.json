@@ -1,0 +1,16 @@
+{
+  "name": "caldera-mcp",
+  "owner": {
+    "name": "jaedync"
+  },
+  "metadata": {
+    "description": "Caldera MCP plugin for Ignition SCADA gateway integration with Claude Code"
+  },
+  "plugins": [
+    {
+      "name": "caldera-mcp",
+      "source": ".",
+      "description": "Ignition SCADA gateway exploration, debugging, diagnostics, and development planning via Caldera MCP"
+    }
+  ]
+}

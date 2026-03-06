@@ -1,0 +1,20 @@
+{
+  "name": "caldera-mcp",
+  "version": "1.0.0",
+  "description": "Ignition SCADA gateway exploration, debugging, diagnostics, and development planning via Caldera MCP. Provides domain-specific skills for Perspective views, tag bindings, Jython scripting, and safety guardrails for production/QA environments.",
+  "author": {
+    "name": "Caldera MCP"
+  },
+  "repository": "https://github.com/caldera-mcp/caldera-mcp-plugin",
+  "license": "MIT",
+  "keywords": [
+    "ignition",
+    "scada",
+    "caldera",
+    "mcp",
+    "perspective",
+    "hmi",
+    "industrial",
+    "inductive-automation"
+  ]
+}
