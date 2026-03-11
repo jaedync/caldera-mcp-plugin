@@ -1,15 +1,26 @@
 # Caldera MCP Plugin for Claude Code
 
-A Claude Code plugin that connects to your Ignition SCADA gateway through [Caldera MCP](https://github.com/caldera-mcp/caldera-mcp), providing 110+ tools for exploration, debugging, diagnostics, and development planning.
+A Claude Code plugin that connects to your Ignition SCADA gateway through [Caldera MCP](https://github.com/caldera-mcp/caldera-mcp), providing 71+ tools for exploration, debugging, diagnostics, and development planning.
 
 ## What's included
 
 - **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via native HTTP transport
-- **Domain Skill** -- Teaches Claude how to effectively use Caldera MCP tools, including:
-  - Perspective view debugging (common pitfalls, binding issues, transform chains)
-  - Jython 2.7 scripting rules for `execute_script`
-  - Gateway exploration workflows
-  - ISA-101/HMI design guidance integration
+- **5 Domain Skills** -- Workflow-specific guidance that loads on demand via progressive disclosure:
+
+| Skill | Triggers when | What it provides |
+|-------|--------------|-----------------|
+| `exploring` | Browsing project structure, listing resources, reading views/scripts/tags | Project navigation workflows, tag exploration, search patterns |
+| `debugging-views` | View not displaying correctly, broken bindings, layout issues | Binding trace workflow, silent failure catalog, transform chain debugging |
+| `writing-jython` | Running scripts on gateway, probing databases, testing expressions | Jython 2.7 syntax rules, bridge execution context, script session management |
+| `planning` | Feature requests, building new screens, component selection | Existing pattern analysis, component schemas, ISA-101/HMI design guidance |
+| `safety-writes` | Any write/delete operation (auto-activates) | Write checklist, environment classification, backup awareness |
+
+- **Shared Reference Files** -- Detailed domain knowledge that loads only when needed:
+  - Jython 2.7 syntax rules (no f-strings, no walrus operator, integer division)
+  - Perspective silent failure catalog (9 common pitfalls)
+  - Binding type reference (tag, expression, property, query)
+  - Bridge execution context (limitations vs Script Console)
+  - Common tool sequences by task type
 
 ## Prerequisites
 
@@ -56,7 +67,7 @@ Claude Code  <--HTTP-->  Caldera MCP Server  <-->  Ignition Gateway
 
 ## Available tools (via Caldera MCP)
 
-The MCP server provides 110+ tools across these categories:
+The MCP server provides 71+ tools across these categories:
 
 | Category | Examples |
 |----------|----------|
