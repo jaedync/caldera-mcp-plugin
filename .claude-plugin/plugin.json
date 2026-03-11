@@ -1,11 +1,11 @@
 {
   "name": "caldera-mcp",
-  "version": "1.0.0",
-  "description": "Ignition SCADA gateway exploration, debugging, diagnostics, and development planning via Caldera MCP. Provides domain-specific skills for Perspective views, tag bindings, Jython scripting, and safety guardrails for production/QA environments.",
+  "version": "2.0.0",
+  "description": "Domain skills for Ignition SCADA development via Caldera MCP. Provides workflow-specific guidance for gateway exploration, Perspective view debugging, Jython scripting, feature planning, and safe write operations.",
   "author": {
     "name": "Caldera MCP"
   },
-  "repository": "https://github.com/caldera-mcp/caldera-mcp-plugin",
+  "repository": "https://github.com/jaedync/caldera-mcp-plugin",
   "license": "MIT",
   "keywords": [
     "ignition",
