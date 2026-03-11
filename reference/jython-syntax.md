@@ -103,4 +103,4 @@ _result = {
 
 `print()` output goes to gateway logs but is not returned in the tool result.
 
-Use `validate_script(code)` to syntax-check before running if unsure.
+Use `caldera:validate_script(code)` to syntax-check before running if unsure.

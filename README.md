@@ -60,7 +60,7 @@ The MCP server provides 110+ tools across these categories:
 
 | Category | Examples |
 |----------|----------|
-| Views | `read_view`, `list_views`, `get_component`, `search_components` |
+| Views | `read_view`, `list_views`, `read_component`, `search_components` |
 | Tags | `browse_tags`, `read_tags`, `write_tags` |
 | Scripts | `execute_script`, `script_session_start/eval/end`, `read_script` |
 | Database | `run_named_query`, `list_named_queries` |
