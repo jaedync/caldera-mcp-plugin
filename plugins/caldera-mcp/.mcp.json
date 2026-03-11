@@ -1,8 +1,11 @@
 {
   "mcpServers": {
     "caldera-mcp": {
-      "type": "http",
-      "url": "https://localhost:8766/mcp"
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://localhost:8766/mcp"],
+      "env": {
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
     }
   }
 }

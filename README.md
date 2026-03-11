@@ -4,7 +4,7 @@ A Claude Code plugin that connects to your Ignition SCADA gateway through [Calde
 
 ## What's included
 
-- **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via HTTPS
+- **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via `mcp-remote` over HTTPS
 - **5 Domain Skills** -- Workflow-specific guidance that loads on demand via progressive disclosure:
 
 | Skill | Triggers when | What it provides |
@@ -44,14 +44,17 @@ claude --plugin-dir ./caldera-mcp-plugin
 
 ## Configuration
 
-By default, the plugin connects to `https://localhost:8766/mcp` (Caldera MCP's HTTPS port). If your server runs on a different host or port, edit `plugins/caldera-mcp/.mcp.json`:
+By default, the plugin connects to `https://localhost:8766/mcp` (Caldera MCP's HTTPS port) via `mcp-remote`. If your server runs on a different host or port, edit `plugins/caldera-mcp/.mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "caldera-mcp": {
-      "type": "http",
-      "url": "https://your-host:your-port/mcp"
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://your-host:your-port/mcp"],
+      "env": {
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
     }
   }
 }
@@ -59,10 +62,10 @@ By default, the plugin connects to `https://localhost:8766/mcp` (Caldera MCP's H
 
 ## How it works
 
-The plugin connects directly to your Caldera MCP server over HTTPS.
+The plugin uses `mcp-remote` (auto-installed via npx) to connect to your Caldera MCP server over HTTPS via stdio transport.
 
 ```
-Claude  <--HTTPS-->  Caldera MCP Server  <-->  Ignition Gateway
+Claude  <--stdio-->  mcp-remote  <--HTTPS-->  Caldera MCP Server  <-->  Ignition Gateway
 ```
 
 ## Available tools (via Caldera MCP)
