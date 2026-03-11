@@ -1,6 +1,6 @@
 {
   "name": "caldera-mcp",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Domain skills for Ignition SCADA development via Caldera MCP. Provides workflow-specific guidance for gateway exploration, Perspective view debugging, Jython scripting, feature planning, and safe write operations.",
   "author": {
     "name": "Caldera MCP"
