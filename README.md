@@ -1,76 +1,57 @@
-# Caldera MCP Plugin for Claude Code
+# Caldera MCP Plugin
 
-A Claude Code plugin that connects to your Ignition SCADA gateway through [Caldera MCP](https://github.com/caldera-mcp/caldera-mcp), providing 71+ tools for exploration, debugging, diagnostics, and development planning.
-
-## What's included
-
-- **MCP Server Connection** -- Automatically connects to your running Caldera MCP server via `mcp-remote` over HTTPS
-- **5 Domain Skills** -- Workflow-specific guidance that loads on demand via progressive disclosure:
-
-| Skill | Triggers when | What it provides |
-|-------|--------------|-----------------|
-| `exploring` | Browsing project structure, listing resources, reading views/scripts/tags | Project navigation workflows, tag exploration, search patterns |
-| `debugging-views` | View not displaying correctly, broken bindings, layout issues | Binding trace workflow, silent failure catalog, transform chain debugging |
-| `writing-jython` | Running scripts on gateway, probing databases, testing expressions | Jython 2.7 syntax rules, bridge execution context, script session management |
-| `planning` | Feature requests, building new screens, component selection | Existing pattern analysis, component schemas, ISA-101/HMI design guidance |
-| `safety-writes` | Any write/delete operation (auto-activates) | Write checklist, environment classification, backup awareness |
-
-- **Shared Reference Files** -- Detailed domain knowledge that loads only when needed:
-  - Jython 2.7 syntax rules (no f-strings, no walrus operator, integer division)
-  - Perspective silent failure catalog (9 common pitfalls)
-  - Binding type reference (tag, expression, property, query)
-  - Bridge execution context (limitations vs Script Console)
-  - Common tool sequences by task type
-
-## Prerequisites
-
-- [Claude Code](https://code.claude.com) v1.0.33+
-- [Caldera MCP server](https://github.com/caldera-mcp/caldera-mcp) running on your Ignition gateway
+Connect Claude to your Ignition SCADA gateway through [Caldera MCP](https://github.com/caldera-mcp/caldera-mcp), providing 71+ tools and 5 domain skills for exploration, debugging, diagnostics, and development planning.
 
 ## Install
 
-### From marketplace
+### Claude Code (plugin with skills + tools)
 
 ```bash
 /plugin marketplace add jaedync/caldera-mcp-plugin
 /plugin install caldera-mcp@caldera-mcp
 ```
 
-### Local development
+Includes 5 workflow skills, shared reference files, and MCP server connection.
+
+### Claude Desktop (tools only)
+
+Download `caldera-mcp.mcpb` from [Releases](https://github.com/jaedync/caldera-mcp-plugin/releases), then open it to install. You'll be prompted for your Caldera MCP server URL (default: `http://localhost:8765/mcp`).
+
+Or build from source:
+
+```bash
+cd desktop-extension
+bash build.sh
+open caldera-mcp.mcpb
+```
+
+### Local development (Claude Code)
 
 ```bash
 claude --plugin-dir ./caldera-mcp-plugin
 ```
 
-## Configuration
+## Prerequisites
 
-By default, the plugin connects to `https://localhost:8766/mcp` (Caldera MCP's HTTPS port) via `mcp-remote`. If your server runs on a different host or port, edit `plugins/caldera-mcp/.mcp.json`:
+- [Caldera MCP server](https://github.com/caldera-mcp/caldera-mcp) running on your Ignition gateway
+- **Claude Code**: v1.0.33+
+- **Claude Desktop**: v0.10.0+
 
-```json
-{
-  "mcpServers": {
-    "caldera-mcp": {
-      "command": "npx",
-      "args": ["-y", "mcp-remote", "https://your-host:your-port/mcp"],
-      "env": {
-        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
-      }
-    }
-  }
-}
-```
+## What's included
 
-## How it works
+### Skills (Claude Code only)
 
-The plugin uses `mcp-remote` (auto-installed via npx) to connect to your Caldera MCP server over HTTPS via stdio transport.
+| Skill | Triggers when | What it provides |
+|-------|--------------|-----------------|
+| `exploring` | Browsing project structure, listing resources | Project navigation, tag exploration, search patterns |
+| `debugging-views` | Broken bindings, layout issues, data not flowing | Binding trace workflow, silent failure catalog |
+| `writing-jython` | Running scripts, probing databases, testing expressions | Jython 2.7 syntax rules, bridge context, script sessions |
+| `planning` | Feature requests, building new screens | Pattern analysis, component schemas, design guidance |
+| `safety-writes` | Any write/delete operation (auto-activates) | Write checklist, environment classification, backup awareness |
 
-```
-Claude  <--stdio-->  mcp-remote  <--HTTPS-->  Caldera MCP Server  <-->  Ignition Gateway
-```
+### Tools (both platforms)
 
-## Available tools (via Caldera MCP)
-
-The MCP server provides 71+ tools across these categories:
+71+ tools across these categories:
 
 | Category | Examples |
 |----------|----------|
@@ -82,6 +63,34 @@ The MCP server provides 71+ tools across these categories:
 | Design | `get_design_guidance`, `search_icons` |
 | Visual | `screenshot_view`, `get_view_console_errors` |
 | Gateway | `get_gateway_health`, `get_gateway_diagnostics` |
+
+## Configuration
+
+### Claude Code
+
+Edit `plugins/caldera-mcp/.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "caldera-mcp": {
+      "type": "http",
+      "url": "http://your-host:your-port/mcp"
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+The server URL is configurable during extension installation. Default: `http://localhost:8765/mcp`.
+
+## How it works
+
+```
+Claude Code    <--HTTP-->   Caldera MCP Server  <-->  Ignition Gateway
+Claude Desktop <--stdio-->  mcp-remote  <--HTTP-->  Caldera MCP Server  <-->  Ignition Gateway
+```
 
 ## License
 
